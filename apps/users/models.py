@@ -22,7 +22,10 @@ class User(AbstractUser):
     last_name = models.CharField(
         _("Имя"), max_length=25, null=True, blank=True
     )
-    registration = models.DateTimeField(_('Регистрация'), auto_now_add=True)
+    registration = models.DateTimeField('Регистрация', auto_now_add=True)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
 
     class Meta:
         verbose_name = 'Пользователь'
@@ -33,6 +36,8 @@ class User(AbstractUser):
         return self.username
 
     def get_full_name(self) -> str:
+        """Получение фамилии и имя пользователя"""
+
         full_name = f'{self.last_name} {self.first_name}'
         return full_name.strip().title()
 
