@@ -1,0 +1,73 @@
+<div class="collapse" id="navbarToggleExternalContent">
+    <div class="bg-dark p-4">
+        <h5 class="text-white h4">Collapsed content</h5>
+        <span class="text-muted">Toggleable via the navbar brand.</span>
+    </div>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#"
+                       id="navbarDropdownMenuLink" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Категории
+                    </a>
+                </li>
+                {% if request.user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#"
+                       id="navbarDropdownMenuLink" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Мой профиль
+                    </a>
+                    <ul class="dropdown-menu"
+                        aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item"
+                               href="{% url 'password_change' %}">Изменить
+                            пароль</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
+                </li>
+                <!-- убрать перед деплоем!!!!!! -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#">{{request.user.username}}</a>
+                </li>
+                <!--!!!!!! убрать перед деплоем -->
+                {% else %}
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Войти</a>
+                </li>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{% url 'register' %}">Регистрация</a>
+                </li>
+
+                {% endif %}
+
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search"
+                       placeholder="Поиск" aria-label="Search" name="q">
+                <button class="btn btn-outline-success" type="submit">Поиск
+                </button>
+            </form>
+        </div>
+
+    </div>
+</nav>

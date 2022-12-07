@@ -9,6 +9,8 @@ LOCAL_APPS = [
 THIRD_PARTY_APPS = [
     'ckeditor',
     'ckeditor_uploader',
+    'crispy_forms',
+    'registration',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
