@@ -12,10 +12,6 @@ from .forms import PasswordResetForm, RegisterForm
 User = get_user_model()
 
 
-def index(request):
-    return render(request, 'index.html')
-
-
 class RegistrationUserView(RegistrationView):
     """Регистрация пользователей"""
 
@@ -25,7 +21,7 @@ class RegistrationUserView(RegistrationView):
     # success_url = reverse('index')
 
     def get_success_url(self, user=None):
-        return reverse('index')
+        return reverse('email:index')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -42,7 +38,7 @@ class RegistrationUserView(RegistrationView):
 
 def logout_user(request):
     logout(request)
-    return HttpResponseRedirect('/users/')
+    return HttpResponseRedirect('/')
 
 
 class ActivationEmailComplete(TemplateView):

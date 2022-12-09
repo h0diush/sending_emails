@@ -7,6 +7,12 @@ class GroupEmail(models.Model):
     """Группы электронных писем"""
 
     name = models.CharField(_('Название'), max_length=55)
+    user = models.ForeignKey(
+        "users.User",
+        verbose_name='Пользователь',
+        on_delete=models.CASCADE,
+        related_name='groups_users'
+    )
 
     class Meta:
         verbose_name = 'Группа для электронной почты'
@@ -36,7 +42,14 @@ class EmailForSending(models.Model):
         verbose_name='Группа',
         on_delete=models.CASCADE,
         null=True,
-        blank=True
+        blank=True,
+        related_name='emails_group'
+    )
+    user = models.ForeignKey(
+        "users.User",
+        verbose_name='Пользователь',
+        on_delete=models.CASCADE,
+        related_name='emails_users'
     )
 
     class Meta:

@@ -3,12 +3,10 @@ from django.urls import path
 from registration.backends.default.views import (ActivationView,
                                                  ResendActivationView)
 
-from .views import (ActivationEmailComplete, LoginUserView,
-                    PasswordChange, PasswordResetView, RegistrationUserView,
-                    logout_user, index)
+from .views import (ActivationEmailComplete, LoginUserView, logout_user,
+                    PasswordChange, PasswordResetView, RegistrationUserView)
 
 urlpatterns = [
-    path('', index, name='index'),
     path('register/', RegistrationUserView.as_view(), name='register'),
     path(
         'login/',

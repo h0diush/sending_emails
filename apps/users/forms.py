@@ -28,10 +28,6 @@ class RegisterForm(UserCreationForm):
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError(
                 f'Пользователь с {email} уже существует')
-        # email_domen = email.split('.')[-1]
-        # domen = ['ru', 'com', 'by', 'ua', 'kz', 'net']
-        # if email_domen not in domen:
-        #     raise forms.ValidationError('Проверьте домен почты')
         return email
 
     def clean_username(self):
