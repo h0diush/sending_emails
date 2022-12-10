@@ -1,3 +1,4 @@
+from ckeditor.fields import RichTextField
 from django.db import models
 from django.urls.base import reverse
 from django.utils.translation import gettext_lazy as _
@@ -22,7 +23,7 @@ class GroupEmail(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('group', kwargs={'pk': self.pk})
+        return reverse('email:group', kwargs={'pk': self.pk})
 
 
 class EmailForSending(models.Model):
@@ -61,7 +62,7 @@ class EmailForSending(models.Model):
         return f'{self.email} ---> {self.owner}'
 
     def get_absolute_url(self):
-        return reverse('email_for_sending', kwargs={'pk': self.pk})
+        return reverse('email:detail_email', kwargs={'pk': self.pk})
 
 
 class Message(models.Model):
@@ -71,7 +72,7 @@ class Message(models.Model):
         to='sending_emails.EmailForSending', related_name='emails',
         verbose_name='Электронные почты'
     )
-    text = models.TextField(_("Текст"))
+    text = RichTextField(_("Текст"))
     created = models.DateField(_('Дата создания'), auto_now_add=True)
 
     class Meta:
@@ -83,4 +84,4 @@ class Message(models.Model):
         return f'{self.email}, Отправлено: {self.created}'
 
     def get_absolute_url(self):
-        return reverse('message', kwargs={'pk': self.pk})
+        return reverse('email:message', kwargs={'pk': self.pk})

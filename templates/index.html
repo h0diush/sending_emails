@@ -2,20 +2,33 @@
 {% block title %} Главная {% endblock %}
 {% load crispy_forms_tags %}
 {% block content %}
-<p class="h1">ГЛАВНАЯ</p>
 
+<p class="h1">ГЛАВНАЯ</p>
+{% include 'inc/_messages.html' %}
 
 {% if emails %}
 <div class="card">
+    <p class="h1 text-center">Электронные почты:</p>
     {% for email in emails %}
     <div class="card-body">
         <h5 class="card-title">{{email.email}}</h5>
         <p class="card-text">Владелец почты: {{email.owner}}</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins
-            ago</small></p>
+        <p class="card-text"><small class="text-muted">{{email.created}}</small></p>
         {% if email.group %}
         <p class="card-text"><small class="text-muted">{{email.group}}</small></p>
         {% endif %}
+        <a href="{{ email.get_absolute_url }}" class="mr"><button class="btn btn-success">Отправить письмо
+        </button></a>
+        <form action="{% url 'email:delete_email' pk=email.id %}" method="post" style="display: inline;">
+          {% csrf_token %}
+          <input type="hidden" name="email_id" value="{{ email.id }}"/>
+               <button type="submit" class="btn btn-danger btn-small">
+                   <span class="glyphicon glyphicon-trash">Удалить</span>
+                </button>
+        </form>
+<!--        <a href="{% url 'email:delete_email' pk=email.id %}" class="mr"><button class="btn btn-danger">Удалить-->
+<!--        </button></a>-->
+
     </div>
 <!--    <hr>-->
 

@@ -1,15 +1,17 @@
 from ckeditor.widgets import CKEditorWidget
 from django import forms
 
-from apps.sending_emails.models import EmailForSending, Message, GroupEmail
+from apps.sending_emails.models import EmailForSending, GroupEmail, Message
+from .mixins import FormModelMixin
 
 
-class MessageForm(forms.ModelForm):
+class MessageForm(FormModelMixin):
     """Форма создания электронного письма"""
 
-    email = forms.ModelMultipleChoiceField(
-        widget=forms.SelectMultiple, queryset=EmailForSending.objects.all()
-    )
+    email = forms.ModelMultipleChoiceField(label='Электронные почты:',
+                                           widget=forms.SelectMultiple,
+                                           queryset=None
+                                           )
     text = forms.CharField(widget=CKEditorWidget())
 
     class Meta:
@@ -17,19 +19,8 @@ class MessageForm(forms.ModelForm):
         fields = ('email', 'text')
 
 
-class EmailCreateForm(forms.ModelForm):
+class EmailCreateForm(FormModelMixin):
     """Форма для добавления почты """
-
-    def __init__(self, *args, **kwargs):
-        """Метод, который отбирает группы одного пользователя """
-
-        user = kwargs.pop('user', None)
-        super(EmailCreateForm, self).__init__(*args, **kwargs)
-        groups = user.groups_users.all()
-        if groups:
-            self.fields['group'].queryset = user.groups_users.all()
-        else:
-            del self.fields['group']
 
     group = forms.ModelChoiceField(label='Группа', widget=forms.Select(),
                                    queryset=None, required=False)

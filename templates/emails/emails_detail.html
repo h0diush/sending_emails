@@ -1,0 +1,10 @@
+{% extends '../base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<form action="{{ email.get_absolute_url }}" method="POST" class="form-signin" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.media }}
+    {{ form|crispy }}
+    <input type="submit" value="Отправить" class="btn btn-success mt-3">
+  </form>
+{% endblock %}
