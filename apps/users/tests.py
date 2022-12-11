@@ -92,7 +92,6 @@ class TestUserCreate(TestCase):
         response = self._test_reset_password('test_usb2@email.com')
         text_error = '* Почта test_usb2@email.com не зарегистрирована на сайте'
         self.assertEqual(response.status_code, 200)
-        print(''.join(mail.outbox[0].to))
         self.assertIn('email', response.context['form'].errors)
         self.assertEqual(
             response.context['form'].errors['email'].as_text(),

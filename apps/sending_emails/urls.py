@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import HomePage, EmailCreateView, CreateGroupForEmailView, \
-    SendMessageEmailView, EmailDeleteView
+
+from .views import CreateGroupForEmailView, EmailCreateView, EmailDeleteView, \
+    HomePage, SendMessageEmailView
 
 app_name = 'email'
 

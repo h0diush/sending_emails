@@ -1,10 +1,10 @@
-from django.views.generic import FormView
 from django import forms
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import FormView
 
 
-class FormViewMixins(FormView):
+class FormViewMixins(LoginRequiredMixin, FormView):
     """Миксин для обработки форм"""
-    # form_class = None
     success_url = '/'
 
     def form_valid(self, form):
@@ -15,6 +15,7 @@ class FormViewMixins(FormView):
 
 class FormModelMixin(forms.ModelForm):
     """Миксин для отображения форм"""
+
     def __init__(self, *args, **kwargs):
         """Метод, который отбирает группы одного пользователя """
 

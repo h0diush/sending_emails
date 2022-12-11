@@ -18,8 +18,25 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link"
-                       href="{% url 'email:index' %}">Главная</a>
+                           href="{% url 'email:index' %}">Главная</a>
                 </li>
+<!--                <li class="nav-item dropdown">-->
+<!--                    <a class="nav-link dropdown-toggle" href="#"-->
+<!--                       id="navbarDropdownMenuLink" role="button"-->
+<!--                       data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--                        Работа с почтой-->
+<!--                    </a>-->
+<!--                    <ul class="dropdown-menu"-->
+<!--                        aria-labelledby="navbarDropdownMenuLink">-->
+<!--                        <li><a class="dropdown-item"-->
+<!--                               href="{% url 'email:create_email' %}">Добавить-->
+<!--                            почту</a></li>-->
+<!--                        <li><a class="dropdown-item"-->
+<!--                               href="{% url 'email:create_group' %}">Добавить-->
+<!--                            группу почт</a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+                {% if request.user.is_authenticated %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#"
                        id="navbarDropdownMenuLink" role="button"
@@ -36,7 +53,6 @@
                             группу почт</a></li>
                     </ul>
                 </li>
-                {% if request.user.is_authenticated %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#"
                        id="navbarDropdownMenuLink" role="button"

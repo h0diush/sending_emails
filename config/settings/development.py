@@ -15,12 +15,23 @@ THIRD_PARTY_APPS = [
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
+DEV_DATABASES = {
+    'default': {
+        'ENGINE': env('DB_ENGINE'),
+        'NAME': env('DB_NAME'),
+        'USER': env('POSTGRES_USER'),
+        'PASSWORD': env('POSTGRES_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT')
+    }
+}
+
 
 def _start_db():
     if DEBUG:
         return LOCAL_DATABASES
+    return DEV_DATABASES
     # return DEVELOPMENT_DATABASES
 
 
-if DEBUG:
-    DATABASES = _start_db()
+DATABASES = _start_db()

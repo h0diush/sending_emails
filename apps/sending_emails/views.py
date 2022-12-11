@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
 from django.urls import reverse_lazy
 from django.views.generic import DeleteView, DetailView, FormView, ListView
@@ -39,7 +40,7 @@ class CreateGroupForEmailView(FormViewMixins):
     form_class = CreateGroupForEmailForm
 
 
-class SendMessageEmailView(DetailView, FormView):
+class SendMessageEmailView(LoginRequiredMixin, DetailView, FormView):
     template_name = 'emails/emails_detail.html'
     model = EmailForSending
     form_class = MessageForm
@@ -50,11 +51,10 @@ class SendMessageEmailView(DetailView, FormView):
         emails = form.save()
         emails.email.add(self.get_object())
         text = form.cleaned_data['text']
-        emails = form.cleaned_data['email']
-        send_message(emails, text)
+        email = form.cleaned_data['email']
+        print(email)
+        send_message(email, text)
         return super().form_valid(form)
-
-    # def post(self, request, *args, **kwargs):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()

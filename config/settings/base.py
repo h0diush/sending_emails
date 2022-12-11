@@ -3,7 +3,7 @@ from pathlib import Path
 
 import environ
 
-env = environ.Env(DEBUG=(bool, False))
+env = environ.Env(DEBUG=(bool, True))
 environ.Env.read_env(env_file=".env")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -18,7 +18,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -85,15 +85,17 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-# STATIC_DIR = os.path.join(BASE_DIR, "../static")
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "../static"),
-]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, '../media')
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, '../static')
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+# STATIC_DIR = os.path.join(BASE_DIR, "../static")
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "../static"),
+# ]
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.User'
@@ -105,7 +107,6 @@ LOGIN_URL = "/users/login/"
 LOGIN_REDIRECT_URL = "email:index"
 LOGOUT_REDIRECT_URL = "email:index"
 
-
 EMAIL_BACKEND = env('EMAIL_BACKEND')
 EMAIL_HOST = env('EMAIL_HOST')
 EMAIL_PORT = env('EMAIL_PORT')
@@ -113,6 +114,8 @@ EMAIL_USE_TLS = env('EMAIL_USE_TLS')
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 # SITE_ID = 1
+
+DJANGO_SETTINGS_MODULE = 'config.settings.development'
 
 
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"

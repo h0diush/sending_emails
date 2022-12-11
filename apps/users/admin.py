@@ -42,4 +42,4 @@ class UserAdmin(BaseUserAdmin):
     def upper_get_full_name(self, obj):
         return f'{obj.get_full_name()}'
 
-    upper_get_full_name.short_description = 'ФИО'
+    upper_get_full_name.short_description = 'ФИ'
